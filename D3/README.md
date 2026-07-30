@@ -103,7 +103,7 @@ with the base translation added back homogeneously. For a finite cell the centre
 
 ### 2.5 Insertion and deletion
 
-**Insertion** (`AddPoin` → `InsertPoin`) is Bowyer–Watson [1][2]. The cavity of a new site $p$,
+**Insertion** (public `AddPoin`, implemented by the private `InsertPoin`) is Bowyer–Watson [1][2]. The cavity of a new site $p$,
 
 ```math
 \mathcal{C}(p) = \{\, \sigma \in \mathrm{Del}(P) \;:\; p \in \mathrm{int}\, B_\sigma \,\} ,
@@ -119,7 +119,7 @@ is star-shaped with respect to $p$, and
 
 The implementation is two-phase. ① *Mark*: $\mathcal{C}(p)$ is collected by a flag-marking flood from the located cell. In three dimensions the dual of the cavity is not a tree, so a cell may be reached along several paths; marking is idempotent, so this causes no double processing. ② *Carve*: a new cell is spanned on each boundary face and welded to the outside and to its neighbours around $p$; only then are the marked cells freed, so re-entry into a removed cell cannot occur by construction. There are no placeholders and no recursion.
 
-**Deletion** (`DeletePoin`) removes the star of $v$ (`CollectStar`), which opens a star-shaped hole whose boundary is $\mathrm{link}(v)$, and refills it from
+**Deletion** (public `DeletePoin`, implemented by the private `RemovePoin`) removes the star of $v$ (`CollectStar`), which opens a star-shaped hole whose boundary is $\mathrm{link}(v)$, and refills it from
 
 ```math
 \mathrm{Del}(P \setminus \{v\}) \;=\; \bigl(\mathrm{Del}(P) \setminus \mathrm{star}(v)\bigr) \;\cup\; \mathcal{F},

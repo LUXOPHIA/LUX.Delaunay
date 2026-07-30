@@ -117,7 +117,7 @@ a X + b Y + c Z + e W = 0
 
 ### 2.5 追加と削除
 
-**追加**（`AddPoin` → `InsertPoin`）は Bowyer–Watson 法 [1][2] です。新しいサイト $p$ のキャビティ
+**追加**（公開 API は `AddPoin`、実処理は非公開の `InsertPoin`）は Bowyer–Watson 法 [1][2] です。新しいサイト $p$ のキャビティ
 
 ```math
 \mathcal{C}(p) = \{\, \sigma \in \mathrm{Del}(P) \;:\; p \in \mathrm{int}\, B_\sigma \,\}
@@ -133,7 +133,7 @@ a X + b Y + c Z + e W = 0
 
 が成り立ちます。実装は２相です。①**マーク**: 着地した面から Flag の塗り広げで $\mathcal{C}(p)$ を集めます。塗りは冪等なので、共円の退化で同じ面へ複数の経路から到達しても二重処理は起こりません。②**カーブ**: 境界辺ごとに新しい面を張り、外側および $p$ の周りの隣どうしと縫い、最後に塗った面をまとめて解放します。解放は縫合の後なので、削除済みの面への再突入は構造的に起こりません。
 
-**削除**（`DeletePoin`）は $v$ の星を取り除きます。すると境界が $\mathrm{link}(v)$ である星型の穴が開き、
+**削除**（公開 API は `DeletePoin`、実処理は非公開の `RemovePoin`）は $v$ の星を取り除きます。すると境界が $\mathrm{link}(v)$ である星型の穴が開き、
 
 ```math
 \mathrm{Del}(P \setminus \{v\}) \;=\; \bigl(\mathrm{Del}(P) \setminus \mathrm{star}(v)\bigr) \;\cup\; \mathcal{F},
